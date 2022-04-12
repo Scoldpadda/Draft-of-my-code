@@ -1,0 +1,42 @@
+class Matrix_and_Vectors : Operations_on_Sequence
+    {
+        int[] Vector;
+        int[,] value;
+       
+        private Matrix_and_Vectors(int[] vector)
+        {
+            if(TestByNull(vector))
+            {
+                Vector = vector;
+            }
+        }
+        private Matrix_and_Vectors (int[] vector, params int [] vectors) : this(vector)
+        {
+            Matrix_and_Vectors newMatrix = new Matrix_and_Vectors(vector);
+            foreach(var i in vectors)
+            {
+                TestByNull(vectors);
+                
+            }
+           
+        }
+        static public Matrix_and_Vectors CreateMatrix(int[] vector)
+        {
+            return new Matrix_and_Vectors(vector);
+        }
+       private bool TestByNull(int[] array)
+        {
+            if (array.Length < 0 || array == null)
+            {
+                throw new ArgumentException("value is null.");
+               
+            }
+            else
+            {
+                return true;
+            }
+        }
+        static void PrintMatrx(Matrix_and_Vectors matrix)
+        {
+           
+        }
