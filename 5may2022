@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+
+
+private int[,] CreatingNewArrayMatrix(int col, int row, Func<int ,int , int > init) // create new ArrayMatrix using Func in initialization
+        {
+            int[,] result = new int[col, row];
+            for(int i =0; i<result.GetLength(0); i++)
+            {
+                for(int j = 0; j<result.GetLength(1); j++)
+                {
+                    result[i, j] = init(i, j);
+                }
+            }
+            return result;
+        }
+        public int[,] NewArrayMatrix(int col, int row, Func<int ,int , int > init)
+        {
+return CreatingNewArrayMatrix(col,row, init);
+}
+    private double[,] Double_ArrayMatrix(int col, int row, double value)
+       {
+            double[,] result = new double[col, row];
+            for (int i = 0; i < result.GetLength(0); i++)
+            {
+                for (int j = 0; j < result.GetLength(1); j++)
+                {
+                    result[i, j] = value;
+                }
+            }
+            return result;
+        }
+        
+        
+        
+        
+        
+        
+        
+        void Main()
+        {
+        var matrx = CreatingNewArrayMatrix(3,4,(i,j) => (i*10)/j);
+        var matr_put_double = Double_ArrayMatrix(3, 4, 1.0);
+        
+        }
+        
