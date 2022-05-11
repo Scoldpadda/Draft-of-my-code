@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.Distributions;
+
+
+
+namespace MathNet_Work
+{
+       void DenseMatrixVariant()
+        {
+            var CreateNewDense = Matrix<double>.Build;
+            CreateNewDense.Dense(3, 4);
+            CreateNewDense.Dense(3, 4, 1.0);
+            CreateNewDense.Dense(3, 4, (i, j) => 100 * i + j);
+            var matr = CreatingNewArrayMatrix(3,4,(i,j) => (i*2)/j);
+            var matr_put_double = Double_ArrayMatrix(3, 4, 1.0);
+            CreateNewDense.DenseDiagonal(3, 4, 2.0);
+            CreateNewDense.DenseIdentity(3);
+            CreateNewDense.Random(3, 4, new Gamma(1.0, 5.0));
+        }
+         private double[,] Diagonal_Matrix(int col, int row, double value_for_diagonal_line)
+        {
+            double[,] result = new double[col, row];
+            for (int i = 0; i < result.GetLength(0); i++)
+            {
+                for (int j = 0; j < result.GetLength(1); j++)
+                {                    
+                    result[i, j + 1] = value_for_diagonal_line;
+                }
+            }
+            return result;
+        }
+          public double [,] Create_Diagonal_Matrix(int col, int row, double value_for_diagonal_line)
+        {
+            return Diagonal_Matrix(col, row, value_for_diagonal_line);
+        }
+        void CopyOfExistData()
+        {
+            var M = Matrix<double>.Build;
+            var V = Vector<double>.Build;
+            double[] x = new double[] { 1, 23, 4, 5, 2, 6 };
+            V.DenseOfArray(x); // copy
+            M.Dense(3, 4, x);
+
+            double[,] _array = new double[,] { { 1.0, 2.0 },
+                                               { 3.0, 4.0 } };
+            M.DenseOfArray(_array);
+            Tuple<int, int, double>[] x_tuple = { Tuple.Create(0, 0, 2.0), Tuple.Create(0, 1, -3.0) };        
+            M.DenseOfIndexed(3, 4, x_tuple);
+            double[] for_column_major = { 1.0,2.0,3.0, 4.0};
+            M.DenseOfColumnMajor(2, 2, for_column_major);
+        }
+        private void Tuple_Op(Func<int,int, int> init)
+        {
+            Tuple<int, int, string>[] array_tuple = { Tuple.Create(1,2,"First_Line"),
+                Tuple.Create(3,4, "Second_Line"), Tuple.Create(5,6,"Third_Line"),
+            Tuple.Create(7,8,"Four_Line")};
+            Tuple<int, int> tuple_instance =new Tuple<int, int>(1,2) ;
+            int copy = init(tuple_instance.Item1, tuple_instance.Item2);
+        }
+}
