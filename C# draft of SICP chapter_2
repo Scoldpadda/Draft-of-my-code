@@ -1,0 +1,1005 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+
+
+namespace SICP._Chapter_2
+{
+    class Program
+    {
+        static void Main()
+        {
+            {
+                Rational_number.Print_rat(One_half());
+                Rational_number.Print_rat(Rational_number.Add_rat(One_half(), One_thrid()));
+                Rational_number.Print_rat(Rational_number.Mul_rat(One_half(), One_thrid()));
+                Rational_number.Print_rat(Rational_number.Add_rat(One_thrid(), One_thrid())); Console.WriteLine();
+                Rational_number.Print_rat(Rational_number.Add_rat(One_Third_v1(), One_Third_v1()));
+                Rational_number.Print_rat(Rational_number.Add_rat(One_Third_v1(), One_Third_v1()));
+            }
+            {
+                Console.WriteLine("Reducing: ");
+                Rational_number.Print_rat(Rational_number.Reduced_rat(Thrid_Nine()));
+            }
+            {
+                Console.WriteLine("Lines task: ");
+                Line_Segments.Print_lines(line1()); Line_Segments.Print_lines(line2()); Console.WriteLine("Mid line: ");
+                Line_Segments.Print_lines(MidLine());
+            }
+            {
+                Console.WriteLine("Rectangles exercise: "); Rectangles.Print_rectangles(Rectangle1());
+                Console.WriteLine(Rectangles.Area(Rectangle1())); Console.WriteLine(Rectangles.Perimeter(Rectangle1()));
+            }
+            {
+                Console.WriteLine("Test Conditions by 0 and 1: ");
+                TestConditions.PrintTestCondition(Conditions1()); TestConditions.PrintTestCondition(Conditions2());
+                Console.WriteLine("Extract the part of pair by \"EXTRACT procedure: \" ");
+                int Conditions1_CAR = TestConditions.ExtractCAR(Conditions1());
+                int Conditions1_CDR = TestConditions.ExtractCDR(Conditions1());
+                int Conditions2_CAR = TestConditions.ExtractCAR(Conditions2());
+                int Conditions2_CDR = TestConditions.ExtractCAR(Conditions2());
+                Console.WriteLine("Conditions1 parts is {0} and {1}", Conditions1_CAR, Conditions1_CDR);
+                Console.WriteLine("Conditions2 parts is {0} and {1}", Conditions2_CAR, Conditions2_CDR);
+            }
+            {
+                Console.WriteLine("New rat instance: ");
+                New_rat_nums.Print_new_rat(rat1());
+                Console.WriteLine("His numer and denom: "); Console.WriteLine("Nomer = {0} ", New_rat_nums.Numer(rat1()));
+                Console.WriteLine("Denom = {0}", New_rat_nums.Denom(rat1()));
+            }
+            {
+                New_rat_nums one_half = New_rat_nums.Make_rat(1, 2);
+                New_rat_nums.Print_new_rat(one_half);
+                New_rat_nums one_thrid = New_rat_nums.Make_rat(1, 3);
+                New_rat_nums.Print_new_rat(one_thrid); Console.WriteLine("Add operation: ");
+                New_rat_nums.Print_new_rat(New_rat_nums.Add_rat(one_half, one_thrid)); Console.WriteLine("Mul operation: ");
+                New_rat_nums.Print_new_rat(New_rat_nums.Mul_rat(one_thrid, one_half)); Console.WriteLine("Add: ");
+                New_rat_nums.Print_new_rat(New_rat_nums.Add_rat(one_thrid, one_thrid));
+            }
+            {
+                Console.WriteLine("Interval task: ");
+                Interval int1 = Interval.Make_interval(18, 4);
+                Interval int2 = Interval.Make_interval(19, 8);
+                Interval.Print_intervals(Interval.Add_interval(int1, int2));
+                Interval.Print_intervals(Interval.Mul_interval(int1, int2));
+                Interval.Print_intervals(Interval.Div_interval(int1, int2));
+                Interval.Print_intervals(Interval.Sub_interval(int1, int2));
+                Console.WriteLine("Exercise 2.9:(width) ");
+                Console.WriteLine(Interval.Width_add(Interval.Add_interval(int1, int2)));
+                Console.WriteLine(Interval.Width_sub(Interval.Sub_interval(int1, int2)));
+                Console.WriteLine("Mul and Div: ");
+                Console.WriteLine(Interval.Width_add(Interval.Mul_interval(int1, int2)));
+                Console.WriteLine(Interval.Width_add(Interval.Div_interval(int1, int2)));
+                var int3 = Interval.Make_interval(0, 10); Console.WriteLine("Exercise 2.10 : (what means that an interval devide zero? )");
+                Interval.Print_intervals(Interval.Div_interval(int1, int3)); Console.WriteLine("In case if one of values is zero: ");
+                Interval.Print_intervals(Interval.Div_interval_modify(int1, int3)); Console.WriteLine("Precent case: ");
+                var interval = Interval.Make_interval(75, 125); ;
+                Interval.Print_Plus_minus(Interval.Make_center_precent(interval, 10));
+
+            }
+            {
+                var struct_interval = Interval.Make_chain(1, Interval.Make_chain(2, Interval.Make_chain(3, Interval.Make_chain(4, null))));
+                Console.WriteLine("Sequence of intervals: ");
+                Interval.Print_intervals(struct_interval);
+                List<Interval> newlist = new List<Interval>(); Console.WriteLine("Print list: ");
+                for (var i = 1; i <= 4; i++)
+                {
+                    newlist.Add(Interval.Make_interval(i, i + 1));
+                }
+                Interval.Print_One_four(newlist); Console.WriteLine("Print choosen element of list: ");
+                Interval.Print_intervals(newlist[0]); Console.WriteLine((Interval.Car(newlist[0]))); Console.WriteLine((Interval.Cdr(newlist[2])));
+            }
+            {
+                List<int> items = new List<int>();
+                for (int i = 1; i < 6; i++)
+                {
+                    items.Add(i);
+                }
+                PrintList(items);
+                Console.WriteLine();
+                var squares = Square_list(items);
+                PrintList(squares);
+                Console.WriteLine("using List-ref procedure: ");
+                Console.WriteLine(List_operations.List_ref(squares, 3)); Console.WriteLine("Length of square: ");
+                List<int> odd = new List<int>();
+                for (int i = 0; i < 8; i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        odd.Add(i);
+                    }
+                }
+                Console.WriteLine("Odd list: ");
+                PrintList(odd); Console.WriteLine("Combined list: ");
+                var list3 = List_operations.Append(squares, odd);
+                var list4 = List_operations.Append(odd, squares);
+                PrintList(list3); PrintList(list4); List<int> null_list = new List<int>();
+                PrintList(List_operations.Append(null_list, odd)); PrintList(List_operations.Append(odd, null_list));
+                Console.WriteLine("Last pair of odd: ");
+                PrintList(List_operations.Last_pair(odd)); PrintList(List_operations.Last_pair(squares));
+                Console.WriteLine("Reverse list: "); var reverse = List_operations.Reverse_list(odd);
+                PrintList(reverse);
+
+
+            }
+            {
+                Console.WriteLine();
+                Console.WriteLine("PAIRS: ");
+                List<int> items = new List<int>();
+                for (int i = 0; i < 5; i++)
+                {
+                    items.Add(i);
+                }
+                PrintList(items); Console.WriteLine("Car list: ");
+                PrintList(_Pairs.Car_list(items)); Console.WriteLine("Cdr list: ");
+                PrintList(_Pairs.Cdr_list(items)); Console.WriteLine("Car of Cdr list: ");
+                PrintList(_Pairs.Car_list(_Pairs.Cdr_list(items))); Console.WriteLine("Insert method: ");
+                items.Insert(0, 10); PrintList(items); items.Insert(0, 5); PrintList(items);
+
+
+            }
+            {
+                Console.WriteLine("SubChapter \"List Operations:\" ");
+                List<int> items = new List<int>();
+                for (int i = 1; i < 6; i++)
+                {
+                    items.Add(i);
+                }
+                List<int> square = Square_list(items);
+                PrintList(square); Console.WriteLine("Using List_ref: ");
+                Console.WriteLine(_Pairs.List_ref(square, 3));
+                List<int> odd = new List<int>();
+                for (int i = 0; i < 8; i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        odd.Add(i);
+                    }
+                }
+                List<int> empty = new List<int>();
+                PrintList(odd); Console.WriteLine(odd.Count); Console.WriteLine("Append list: "); PrintList(_Pairs.Append(odd, square));
+                PrintList(_Pairs.Append(empty, square)); PrintList(_Pairs.Append(odd, empty)); PrintList(_Pairs.Append(empty, empty)); Console.WriteLine("Last_pair:(square) ");
+                Console.WriteLine(_Pairs.Last_pair(square));
+                Console.WriteLine(_Pairs.Count_change(100)); Console.WriteLine();
+                Console.WriteLine("Coins: ");
+
+            }
+            {
+                Console.WriteLine("Same parity method: ");
+                ShelterDog dogShelter = new ShelterDog();
+                foreach (Dog dog in dogShelter)
+                {
+                    if (!dog.NaughtyDog)
+                    {
+                        dog.GiveTreat(dog, 2);
+                    }
+                    else
+                    {
+                        dog.GiveTreat(dog, 1);
+                    }
+                }
+            }
+            {
+                ArrayList list = new ArrayList() { 1, 2, '.', 3, 4, 5, 6 };
+                Console.WriteLine("Exercise 2.20: ");
+                var NewList = _Pairs.Same_Parity(list);
+                _Pairs.Print_ArrayList(NewList); Console.WriteLine();
+                _Pairs.Print_ArrayList(_Pairs.Same_Parity_Even(_Pairs.Same_Parity(list)));
+                List<int> list2 = new List<int> { 3, 7, 1, 3, 9, 10, 51, 34, 65, 63, 76, 11 }; List<int> list3 = new List<int>() { 2, 7, 1, 3, 9, 10, 51, 34, 65, 63, 76, 11 };
+                Console.WriteLine("Print all Even numbers:(list2) ");
+                _Pairs.Print_ArrayList(_Pairs.Same_Parity_Even(_Pairs.Same_Parity(list2)));
+                Console.WriteLine("Print all Odd numbers:(list3) ");
+                _Pairs.Print_ArrayList(_Pairs.Same_Parity_Even(_Pairs.Same_Parity(list3)));
+
+
+            }
+            {
+                Console.WriteLine();
+                Console.WriteLine("Mapping section: ");
+                List<double> list = new List<double>() { 1, 2, 3, 4, 5 };
+                _Pairs.Print_ArrayList(Mapping_Lists.Scale_list(list, 10));
+            }
+            {
+                Console.WriteLine("Map: ");
+                List<double> items = new List<double>() { -10, 2.5, -11.6, 17 };
+                _Pairs.Print_ArrayList(Mapping_Lists.Map(Math.Abs, items));
+                Console.WriteLine("Using Map by lambda passing: ");
+                List<double> list1 = new List<double>() { 1, 2, 3, 4 };
+                Func<double, double> lambda = x => { return x * x; };
+                _Pairs.Print_ArrayList(Mapping_Lists.Map(lambda, list1));
+                Console.WriteLine("Mapping Scale: ");
+                _Pairs.Print_ArrayList(Mapping_Lists.Scale_list(Mapping_Lists.Map(lambda, list1), 10)); Console.WriteLine("Scale by Map: ");
+                _Pairs.Print_ArrayList(Mapping_Lists.Scale_list_Map(list1, 10));
+            }
+            {
+                List<double> items = new List<double>() { 2, 4, 6, 8, 10 };
+                Console.WriteLine("Exercise 2.21: "); _Pairs.Print_ArrayList(items);
+                _Pairs.Print_ArrayList(Mapping_Lists.Square_list(items)); Func<double, double> empty_l = x => { return x*2; };
+                _Pairs.Print_ArrayList(Mapping_Lists.Square_list(Mapping_Lists.Map(empty_l, items)));
+            }
+            {
+                Console.WriteLine("2.2.2 Hierarchical Structers: ");
+                List<int> list1 = new List<int>() { 1, 2 }; List<int> list2 = new List<int>() { 3, 4 };
+                List<int> X = _Pairs.Append(list1, list2); Console.WriteLine("Cdr length of X: "); Console.WriteLine(_Pairs.Cdr_list(X).Count);
+                Console.WriteLine("Count of X: "); Console.WriteLine(X.Count);
+                List<int> X_v2 = _Pairs.Append(X, X); Console.WriteLine("Count of list XX: "); Console.WriteLine(X_v2.Count);
+                List<int> Car(List<int> items)
+                {
+                    List<int> result = new List<int>();
+                    if (items is null)
+                    {
+                        return default;
+                    }
+                    else
+                    {
+                        result.Add(items.First());
+                        return result;
+                    }
+                }
+                List<int> Cdr(List<int> items)
+                {
+                    List<int> result = new List<int>();
+                    if (items is null)
+                    {
+                        return default;
+                    }
+                    else
+                    {
+                        for (int i = 1; i < items.Count; i++)
+                        {
+                            result.Add(items[i]);
+                        }
+                        return result;
+                    }
+                }
+
+                List<int> first_line = new List<int>() { 1, 3, 5, 7, 9 }; Console.WriteLine("Exercise 2.25: ");
+                _Pairs.Print_ArrayList(Car(Cdr(Cdr(Cdr(first_line))))); // print 7
+                List<int> second_Line = new List<int>() { default, 7, default };
+                _Pairs.Print_ArrayList(Car(Cdr(second_Line)));  // 
+                List<int> last_line = new List<int>() { 1, 2, 4, 5, 6, 7 };
+                _Pairs.Print_ArrayList(Car(Cdr(Cdr(Cdr(Cdr(Cdr(last_line)))))));// (1(2(3(4(5(6 7))))))
+                Console.WriteLine("Exercise 2.26: ");
+                List<int> x = new List<int>() { 1, 2, 3 }; List<int> y = new List<int>() { 4, 5, 6 };
+                _Pairs.Print_ArrayList(_Pairs.Append(x, y));
+                var list_new = new List<List<int>> { x, y }; 
+                var cons = new { x, y };
+                _Pairs.Print_ArrayList(list_new); _Pairs.Print_ArrayList(cons.x);
+                Console.WriteLine("Exercise 2.27: ");
+                var depp_reversed_list = _Pairs.Deep_reverse(list_new) ; depp_reversed_list.Reverse();
+                foreach(var i in depp_reversed_list)
+                {
+                    foreach(var b in i)
+                    {
+                        Console.Write(b + " ");
+                    }
+                }
+                Console.WriteLine("Exercise 2.28: ");
+                List<int> brunch1 = new List<int>() { 1, 2 }; List<int> brunch2 = new List<int>() { 3,4 };
+                List<List<int>> tree = new List<List<int>>() { brunch1, brunch2 };
+                
+             
+
+
+              
+
+
+
+
+
+
+
+
+            }
+               
+            
+            
+        }
+      
+
+    public static void PrintList(List<int> items)
+        {
+            
+            foreach(var i in items)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+        }
+        public static List<int> Square_list(List<int> items)
+        {
+            List<int> result = new List<int>();
+            Func<int, int> sqrt = x => { return x * x; };
+            for(int i =0; i < items.Count; i++)
+            {
+                result.Add(sqrt(items[i]));
+            }
+            return result;
+        }
+
+
+        static New_rat_nums rat1()
+        {
+            return New_rat_nums.Make_rat(1, 2);
+        }
+        static TestConditions Conditions1()
+        {
+            return TestConditions.Make_Instance(1, 0);
+        }
+        static TestConditions Conditions2()
+        {
+            return TestConditions.Make_Instance(2, 2);
+        }
+        static public Rectangles Rectangle1()
+        {
+            return Rectangles.Make_rectangles(5,9,3,4);
+        }
+        static public Line_Segments line1() => Line_Segments.Make_point(10, 9);
+        static public Line_Segments line2() => Line_Segments.Make_point(15, 7);
+        static public Line_Segments MidLine()
+        {
+            return Line_Segments.MidPoint(line1(),line2());
+        }
+
+        static Rational_number Thrid_Nine()
+        {
+            return Rational_number.Make_rat(3, 9);
+        }
+        static Rational_number One_half()
+        {
+            return Rational_number.Make_rat(1, 2);
+        }
+        static Rational_number One_thrid()
+        {
+            return Rational_number.Make_rat(1, 3);
+        }
+        static Rational_number One_half_v1() => Rational_number.Make_rat_v1(1, 2);
+        static Rational_number One_Third_v1() => Rational_number.Make_rat_v1(1, 3);
+
+       
+
+
+
+
+    }
+   
+    public class Rational_number
+    {
+
+        public int Numerator { get; set; } // selector
+        public int Denomerator { get; set; } // selector
+        public Rational_number Numer_rat { get; set; }
+       
+        public Rational_number Denom_rat { get; set; }
+        public Rational_number(int x, int y) // ctor
+        {
+            Numerator = x; Denomerator = y;
+        }
+        public Rational_number(Rational_number x, Rational_number y)
+        {
+            Numer_rat = x; Denom_rat = y;
+        }
+        public  static Rational_number Make_rat(int x, int y)
+        {
+            return new Rational_number(x, y);
+        }
+        public static Rational_number Reduced_rat(Rational_number value)
+        {
+            return new Rational_number(Numer_reduction(value), Denom_reduction(value));
+        }
+        private static int Numer_reduction(Rational_number value)
+        {
+            var g = Evclid_alg(value.Numerator, value.Denomerator);
+            return value.Numerator / g;
+        }
+        private static  int Denom_reduction(Rational_number value)
+        {
+            var g = Evclid_alg(value.Numerator, value.Denomerator);
+            return value.Denomerator / g;
+        }
+        public static Rational_number Make_rat_v1(int x, int y)
+        {
+            return new Rational_number(x / Evclid_alg(x, y), y / Evclid_alg(x, y));
+        }
+        public static void Print_rat(Rational_number value)
+        {
+            Console.WriteLine();
+            Console.Write(value.Numerator); Console.Write("/"); Console.Write(value.Denomerator);
+        }
+        public static Rational_number Add_rat(Rational_number x, Rational_number y)  // x = n1/d1 + y =  n2/d2
+        {
+            return  new Rational_number(((x.Numerator * y.Denomerator) + (y.Numerator * x.Denomerator)),(x.Denomerator*y.Denomerator));
+        }
+        public static Rational_number Sub_rat(Rational_number x, Rational_number y)  // x = n1/d1 - y =  n2/d2
+        {
+            return new Rational_number(((x.Numerator * y.Denomerator) - (y.Numerator * x.Denomerator)), (x.Denomerator * y.Denomerator));
+        }
+        public static Rational_number  Mul_rat(Rational_number x, Rational_number y)
+        {
+            return new Rational_number((x.Numerator * y.Numerator),(x.Denomerator * y.Denomerator));
+        }
+        public static Rational_number Div_rat(Rational_number x, Rational_number y)
+        {
+            return new Rational_number((x.Numerator * y.Denomerator), (x.Denomerator * y.Numerator));
+        }
+        public static bool  Equal_rat(Rational_number x, Rational_number y)
+        {
+            return (x.Numerator * y.Denomerator) == (x.Denomerator * y.Numerator);
+        }
+       public static  int Evclid_alg(int x, int y)
+        {
+            if (y == 0)
+            {
+                return x;
+            }
+            else
+            {
+                return Evclid_alg(y, Remainder(x, y));
+            }
+            int Remainder(int x, int y)
+            {
+                return x % y;
+            }
+        }
+        public static int NOK(int x, int y)
+        {
+            Func<int, int, int> lamba = (x, y) => { return (x * y) / Evclid_alg(x, y); };
+            return lamba(x, y);
+
+        }
+
+    }
+}
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SICP._Chapter_2
+{
+    class _Pairs
+    {
+        private int Car { get; set; }
+        private int Cdr { get; set; }
+        private _Pairs(int x, int y)
+        {
+            (Car, Cdr) = (x, y);
+        }
+        static public int List_ref(List<int> items, int n)
+        {
+            return items[n];
+        }
+
+        static public List<int> Car_list(List<int> items)
+        {
+            int first = items.First();
+            List<int> result = new List<int>();
+            result.Add(first);
+            return result;
+        }
+        static public List<double> Car_list(List<double> items)
+        {
+            double first = items.First();
+            List<double> result = new List<double>();
+            result.Add(first);
+            return result;
+        }
+
+        static public List<int> Cdr_list(IEnumerable<int> items)
+        {
+            List<int> result = new List<int>();
+            for (var i = 1; i < items.Count(); i++)
+            {
+                result.Add(i);
+            }
+            return result;
+        }
+        static public List<double> Cdr_list(List<double> items)
+        {
+            List<double> result = new List<double>();
+            for (var i = 1; i < items.Count; i++)
+            {
+                result.Add(i);
+            }
+            return result;
+        }
+
+
+        static public List<int> Append(List<int> list1, List<int> list2)
+        {
+            List<int> combined = new List<int>();
+            if (list1 is null)
+            {
+                for (int i = 0; i < list2.Count; i++)
+                {
+                    combined.Add(list2[i]);
+                }
+                return combined;
+            }
+            else
+            {
+                for (int i = 0; i < list1.Count; i++)
+                {
+                    combined.Add(list1[i]);
+                }
+                for (int i = 0; i < list2.Count; i++)
+                {
+                    combined.Add(list2[i]);
+                }
+                return combined;
+            }
+        }
+        static public int Last_pair(List<int> items)
+        {
+            return items.Last();
+        }
+        public static int Count_change(int amount)
+        {
+            int CC(int amount, int kind_of_coins)
+            {
+                if (amount == 0)
+                {
+                    return 1;
+                }
+                else if (amount < 0 | kind_of_coins <= 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return CC(amount, kind_of_coins - 1) + CC(amount - First_denomination(kind_of_coins), kind_of_coins);
+                }
+            }
+            return CC(amount, 5);
+        }
+        private static int First_denomination(int kind_of_coins)
+        {
+            if (kind_of_coins == 1) return 1;
+            if (kind_of_coins == 2) return 5;
+            if (kind_of_coins == 3) return 10;
+            if (kind_of_coins == 4) return 25;
+            if (kind_of_coins == 5) return 50;
+            else { return 0; }
+        }
+        static public List<double> US_coins()
+        {
+            return US_coin();
+        }
+        static public List<double> UK_coins()
+        {
+            return UK_coin();
+        }
+        private static List<double> US_coin()
+        {
+            List<double> US = new List<double>();
+            US.Add(1); US.Add(5); US.Add(10); US.Add(25); US.Add(50);
+            return US;
+        }
+        private static List<double> UK_coin()
+        {
+            List<double> US = new List<double>(); US.Add(0.5);
+            US.Add(1); US.Add(5); US.Add(10); US.Add(20); US.Add(50); US.Add(100);
+            return US;
+        }
+        public static double Coins_Changer(double amount, List<double> coins)
+        {
+            if (amount == 0)
+            {
+                return 1;
+            }
+            else if (amount < 0 || coins is null)
+            {
+                return 0;
+            }
+            else
+            {
+                Func<List<double>, double> filter = (list) =>
+                {
+                    if (list.Count <= 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return list.First();
+                    }
+                };
+                return Coins_Changer(amount, Car_list(coins)) + Coins_Changer(amount - filter(coins), coins);
+            }
+        }
+
+        public static List<int> Same_Parity(IEnumerable Arraylist)
+        {
+            List<int> result = new List<int>();
+            var enumer = Arraylist.GetEnumerator();
+            while (enumer.MoveNext())
+            {
+                if (enumer.Current is not int)
+                {
+                    enumer.MoveNext();
+                    result.RemoveRange(0, (int)enumer.Current - 1);
+
+                }
+                result.Add((int)enumer.Current);
+
+            }
+            enumer.Reset();
+            return result;
+
+        }
+        public static List<int> Same_Parity_Even(IEnumerable<int> arrayList)
+        {
+            List<int> result = new List<int>();
+            var first = arrayList.ToString().First();
+            IEnumerator e = arrayList.GetEnumerator();
+            while (e.MoveNext())
+            {
+                if ((int)e.Current % 2 == 0)
+                {
+                    result.Add((int)e.Current);
+                }
+            }
+            return result;
+
+        }
+        static public void Print_ArrayList(IEnumerable list)
+        {
+
+            foreach (var i in list)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+        }
+        static public List<int> Make_trees(List<int> list1, List<int> list2)
+        {
+            return Append(list1, list2);
+        }
+
+
+        static public List<List<int>> Deep_reverse(List<List<int>> items)
+        {
+            Func<List<int>, List<int>> reverse_inside = sub_items => { sub_items.Reverse(); return sub_items; };
+            for (var i = 0; i < items.Count; i++)
+            {
+                reverse_inside(items[i]);
+            }
+            return items;
+        }
+    }
+
+
+
+    class Dog 
+    {
+      private string Name { get; set; }
+        public bool NaughtyDog { get; set; }
+        public Dog(string name, bool naughty)
+        {
+            (Name, NaughtyDog) = (name, naughty);
+        }
+        public void GiveTreat(Dog dog, int numberOfTreat)
+        {
+            Console.WriteLine("Dog {0} say Gav {1} times!", dog.Name, numberOfTreat);
+        }
+
+    }
+    class ShelterDog : IEnumerable<Dog>
+    {
+
+        public List<Dog> dogs;
+        public ShelterDog()
+        { 
+            dogs = new List<Dog>() {
+            new Dog("Alfa", false),
+            new Dog("Beta", true),
+            new Dog("Creta", false),
+            new Dog("Dida", true)                  
+            };
+
+        }
+
+        IEnumerator<Dog> IEnumerable<Dog>.GetEnumerator()  
+        {
+            return dogs.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+
+
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SICP._Chapter_2
+{
+    class List_operations
+    {
+        
+        public static int List_ref(List<int> items, int n)
+        {
+            return items[n];
+        }
+     public static List<int> Append (List<int> list1, List<int> list2)
+        {
+            List<int> result = new List<int>();
+            if (list1 is null)
+            {
+                result.AddRange(list2);
+                return result;
+            }
+            else
+            {
+                result.AddRange(list2);
+                result.AddRange(list1);
+                return result;
+            }
+            //result.AddRange(list1); result.AddRange(list2);
+
+        }
+        public static List<int> Last_pair(List<int> items)
+        {
+            List<int> result = new List<int>();
+            result.Add(items.Last());
+            return result;
+        }
+        public static List<int> Reverse_list(List<int> items)
+        {
+            items.Reverse();
+            return items;
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
+    class Mapping_Lists 
+    {
+        public delegate double Proc(double x);
+       
+        public static IEnumerable<double> Scale_list(IEnumerable<double> list, double factor)
+        {
+            List<double> result = new List<double>();
+            if (list is null)
+            {
+                return result;
+            }
+            else
+            {
+                IEnumerator<double> e = list.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    result.Add(e.Current* factor);
+
+                }
+                return result;        
+            }
+           
+        }
+        private static IEnumerable<int> Car(IEnumerable<int> items)
+        {
+            return new List<int>() { items.First()};
+        }
+        private static IEnumerable<int> Cdr(IEnumerable<int> items)
+        {
+            items.ToList().RemoveAt(0);
+            return items;
+        }
+        public static IEnumerable<double> Map(Func<double, double> proc , List<double> items)
+        {
+            List<double> result = new List<double>();
+            if(items is null)
+            {
+                return result;
+            }
+            else
+            {
+                IEnumerator<double> e = items.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    result.Add(proc(e.Current));
+                }
+                return result;
+            }
+        }
+        public static IEnumerable<double> Scale_list_Map(List<double> items, double factor)
+        {
+            Func<double, double> lambda = x => { return x * factor; };
+            return Map(lambda, items);
+        }
+        public static List<double> Square_list(IEnumerable<double> items)
+        {
+            List<double> result = new List<double>();
+            IEnumerator<double> e = items.GetEnumerator();
+            while (e.MoveNext())
+            {
+                result.Add(Math.Pow(e.Current,2));
+            }
+            return result;
+        }
+
+       
+
+
+
+
+
+    }
+
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
+
+namespace SICP._Chapter_2
+{
+    class Interval
+    {
+
+
+
+        private double Upper_bound { get; set; }
+        private double Lower_bound { get; set; }
+        private Interval Interval_Car { get; set; }
+        private Interval Interval_Cdr { get; set; }
+        private Interval(double x, double y)
+        {
+            (Upper_bound, Lower_bound) = (x, y);
+           
+        }
+        private Interval(Interval a, Interval b)
+        {
+            (Interval_Car, Interval_Cdr) = (a, b);
+        }
+        private Interval(double a, Interval b)
+        {
+            (Upper_bound, Interval_Cdr) = (a, b);
+        }
+        private Interval(Interval a, double b)
+        {
+            (Interval_Car, Lower_bound) = (a, b);
+        }
+        public static Interval Make_interval(double x, double y)
+        {
+            
+            return new Interval(x, y);
+        }
+        public static Interval Make_chain(double a, Interval b)
+        {
+            return new Interval(a, b);
+        }
+        
+        private static double _Center(Interval i)
+        {
+            return (i.Upper_bound+i.Lower_bound)/ 2;
+            
+        }
+        private static double _Precent(Interval i, double tolerance)
+        {
+            return (_Center(i) / 100) * tolerance;
+        }
+        public static Interval Make_center_precent(Interval i, double precentage )
+        {
+            return new Interval(_Center(i), _Precent(i, precentage));
+        }
+        public static Interval Add_interval(Interval a, Interval b)
+        {
+            return Make_interval(a.Upper_bound + b.Upper_bound, a.Lower_bound + b.Lower_bound);
+        }
+        public static Interval Mul_interval(Interval a, Interval b)
+        {
+            var aL = a.Lower_bound; var aU = a.Upper_bound;
+            var bL = b.Lower_bound; var bU = b.Upper_bound;
+            return Make_interval(Math.Min(Math.Min(aL, bL), Math.Min(aU, bU)),
+                Math.Max(Math.Max(aU, bU), Math.Max(bL, bU)));
+        }
+        public static double Car(Interval interval)
+        {
+            return interval.Upper_bound;
+        }
+        public static double Cdr(Interval interval)
+        {
+            return interval.Lower_bound;
+        }
+        public static double Width_add(Interval interval)
+        {
+            return (interval.Upper_bound + interval.Lower_bound) / 2;
+        }
+        public static double Width_sub(Interval interval)
+        {
+            if (interval.Upper_bound > interval.Lower_bound)
+            {
+                return (interval.Upper_bound - interval.Lower_bound) / 2;
+            }
+            else
+            {
+                Console.WriteLine("Error: Upper is less then lower. ");
+                return 0;
+            }
+        }
+
+        public static Interval Div_interval(Interval a, Interval b)
+        {
+            return Mul_interval(a, Make_interval(1.0 / b.Upper_bound, 1.0 / b.Lower_bound));
+        }
+        public static Interval Div_interval_modify(Interval a, Interval b)
+        {
+          bool Check_by_Zero(Interval test)
+            {
+                return test.Upper_bound <= 0 || test.Lower_bound <= 0;
+            }
+            if (Check_by_Zero(a) || Check_by_Zero(b))
+            {
+
+                Console.WriteLine("Error: One of bounds is zero.");
+                return Make_interval(0, 0);
+            }
+            else
+            {
+                return Mul_interval(a, Make_interval(1.0 / b.Upper_bound, 1.0 / b.Lower_bound));
+            }
+            
+        }
+        public static Interval Sub_interval(Interval a, Interval b)
+        {
+            return Make_interval(a.Upper_bound - b.Lower_bound, a.Lower_bound - b.Upper_bound);
+        }
+
+        public static void Print_intervals(Interval a)
+        {
+            Console.WriteLine("[{0},{1}]", a.Upper_bound, a.Lower_bound) ;
+        } 
+        public static void Print_Plus_minus (Interval i) 
+        {
+
+            Console.WriteLine("{0}±(-){1}(%)",i.Upper_bound,i.Lower_bound);
+        }
+        public static void Print_One_four(List<Interval> list)
+        {
+
+            for(var i =0; i<list.Count; i++)
+            {
+                Console.WriteLine("[{0},{1}]", list[i].Upper_bound, list[i].Lower_bound);
+            }
+            
+        }
+        public static double List_ref(List<Interval> items, int n)
+        {
+            if (n == 0)
+            {
+                return Car(items[n]);
+            }
+            else
+            {
+                return Cdr(items[n - 1]);
+            }
+        }
+            
+
+
+    }
+}
+
