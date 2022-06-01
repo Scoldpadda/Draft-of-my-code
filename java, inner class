@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+public class Fridge {
+    private String  Name;
+    private int date_of_manufacture;
+    public ArrayList<Food> foods = new ArrayList<Food>();
+    public Fridge(String name, int date_of_creation){
+Name = setName(name);
+date_of_manufacture = setDate_of_manufacture(date_of_creation);
+    }
+    public Food newFood(String title, double calories, float price){
+        return new Food(title,calories,price);
+    }
+
+    public String setName(String name){
+        if(name == null) {return  "Null.";
+        }
+        return  name;
+    }
+    public int setDate_of_manufacture(int input){
+        if(input<1950 || input>2023 ){
+            System.out.println("\n date of manufacture is available.");
+            return 0;
+        }
+        return input;
+    }
+    public void DisplayFoodList(){
+        if(foods.size() == 0){
+            System.out.printf("\n Fridgee %S is empty. ", Name);
+        }
+        if(foods.size()>0){
+        System.out.printf("\n Food list in %s fridge:  ",Name + " ");
+        System.out.printf("\n");
+        for(Fridge.Food i : foods) {
+            System.out.println("Name: " + i.food_title + ", calories: " + i.food_calories + ", price " + i.food_price);
+        }
+        }
+    }
+    class Food{
+        private String food_title;
+        private double food_calories;
+        private float food_price;
+        private  Food(String _food_title, double _food_calories, float _food_price){
+        food_title = setFood_title(_food_title);
+        food_calories = setFood_calories(_food_calories);
+        food_price = setFood_price(_food_price);
+        foods.add(this);
+        }
+        public String setFood_title(String title){
+            if(title == null || title.length()<=2 ){
+                return "title is not correct.";
+            }
+            return title;
+        }
+        public double setFood_calories(double input){
+            if(input <12|| input >7000){
+                return 0;
+            }
+            return input;
+        }
+        public float setFood_price(float input) {
+            if(input <0.1f){
+                return 0.0f;
+            }
+            return input;
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args)
+    {
+Fridge f_Saratov = new Fridge("Saratov",1984);
+f_Saratov.newFood("apple",10.2d,5.30f );
+f_Saratov.newFood("Meat", 400.52d, 50.12f);
+f_Saratov.DisplayFoodList();
+Fridge f_SpaceX = new Fridge("SpaceX", 2022);
+f_SpaceX.DisplayFoodList();
+Fridge f_Toyota = new Fridge("Toyota",2020);
+f_Toyota.newFood("Roll",24.8d,10.7f);
+f_Toyota.newFood("Spagetti", 76.12d, 4.54f);
+f_Toyota.DisplayFoodList();
+    }
