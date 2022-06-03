@@ -1,0 +1,106 @@
+import java.util.Random;
+import  java.lang.Math;
+
+public class Car {
+    public String car_name;
+    public String car_Model;
+    public float the_horse_Power;
+    public  double max_Weight;
+    private  static  int vehicle_id_0;
+    private static int vehicle_id_1;
+    private  int the_car_count=0;
+    private final String vehilce_id;
+
+     public Car(String car_Name, String car_model, float the_horse_power){
+         car_name = car_Name; car_Model = car_model; the_horse_Power = the_horse_power;
+         vehilce_id = _Generate_Vehicle_id();
+     }
+     public String _Generate_Vehicle_id(){
+         Random rnd = new Random();
+         vehicle_id_0 = rnd.nextInt(100,999);
+         vehicle_id_1 = rnd.nextInt(100,999);
+         the_car_count=0; the_car_count++;
+         return new String(Integer.toString( vehicle_id_0) +Integer.toString( vehicle_id_1));
+     }
+     public void Read_Info(){
+         System.out.printf("Info about %s: ", car_name);
+         System.out.println("\nCar name is " + car_name);
+         System.out.println("Car model is " + car_Model);
+         System.out.println("Car id is " + vehilce_id);
+         System.out.println("Total amount of car`s: " + the_car_count);
+         System.out.println("information is over. \n");
+
+     }
+     public void Display_vehicle_id(){
+         System.out.println(vehilce_id);
+     }
+     public void Car_Count_display(){
+        System.out.println(the_car_count);
+     }
+}
+ class Fly extends Car  {
+
+    private double engine_volume;
+   private String fly_vehicle_id;
+     public Fly(String fly_name, String fly_model, float the_horse_power) {
+         super(fly_name, fly_model, the_horse_power);
+         fly_vehicle_id = _Generate_Vehicle_id();
+     }
+
+     @Override
+     public String _Generate_Vehicle_id() {
+         return super._Generate_Vehicle_id();
+     }
+
+public  void AccessebilityTest(){
+         System.out.println("This string from Fly class.");
+}
+     public void Read_Info() {
+         super.Read_Info();
+         System.out.println("Fly id is " + fly_vehicle_id);
+     }
+ }
+ public class Main {
+    public static void main(String[] args)
+    {
+    Fly AN_94 = new Fly("AN-94","SuperStar", 1024);
+AN_94.Read_Info();
+Car superCar = new Fly("Wings", "t1000", 2256);
+superCar.Read_Info();
+AN_94.AccessebilityTest(); // Ok
+superCar.AccessebilityTest(); // error. 
+Dog avav = new Dog("Avav",5.4,3,10);
+System.out.println("\nRan distance is : " + avav.RanDistance(avav.getStart(),avav.getFinish()));
+
+    }
+    }
+    public abstract class Runing {
+    private  double Run_speed;
+    private String nameOfRunner;
+    private int start_point, finish_point;
+    Runing(String name, double run_speed,int start, int finish){
+        nameOfRunner = name; Run_speed = run_speed; start_point = start; finish_point = finish;
+    }
+    public int RanDistance(int start, int finish){
+        if(start > finish){
+            DistanceError(); // exception
+        }
+        return finish- start;
+    }
+    private Exception DistanceError(){
+        return new Exception("Error: start point more than finish.");
+    }
+    public int getStart(){
+        return start_point;
+    }
+    public  int getFinish(){
+        return finish_point;
+    }
+}
+public class Dog extends  Runing{
+    Dog(String name, double run_speed,int start, int finish ){
+        super(name, run_speed, start, finish);
+    }
+}
+
+
