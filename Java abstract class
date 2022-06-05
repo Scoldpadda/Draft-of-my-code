@@ -1,0 +1,89 @@
+public abstract class Runing {
+    private  double Run_speed;
+    private String nameOfRunner;
+    private int start_point, finish_point;
+    Runing(String name, double run_speed,int start, int finish){
+        nameOfRunner = name; Run_speed = run_speed; start_point = start; finish_point = finish;
+    }
+    Runing(String name){
+        nameOfRunner = name;
+    }
+    public int RanDistance(int start, int finish){
+        if(start > finish){
+            DistanceError(); // exception
+        }
+        return finish- start;
+    }
+    private Exception DistanceError(){
+        return new Exception("Error: start point more than finish.");
+    }
+    public int getStart(){
+        return start_point;
+    }
+    public  int getFinish(){
+        return finish_point;
+    }
+}
+public abstract class Abstract_Sleep extends  Runing {
+
+
+    Abstract_Sleep(String name, double sleep_time, int start, int finish) {
+        super(name, sleep_time, start, finish);
+    }
+Abstract_Sleep(String name){
+        super(name);
+}
+    abstract void Prepare_sleep();
+    abstract  boolean Good_sleep_statement(double start, double finish);
+}
+public class Cat extends Abstract_Sleep{
+    private String CatName;
+    Cat(String name, double sleep_time, int start, int finish){
+        super( name,  sleep_time,  start,  finish);
+        CatName =giveName(name);
+    }
+
+    Cat(String name){
+        super(name);
+        CatName =giveName(name);
+    }
+
+private String giveName(String name){
+        if(name == null || name.length() <=2) {
+            return Error().getMessage();
+        }
+        return name;
+}
+    @Override
+    void Prepare_sleep() {
+        System.out.println("\n prepared sleep.");
+    }
+
+    @Override
+    boolean Good_sleep_statement(double start, double finish){
+        return finish-start > 5;
+}
+private boolean  ResultOfGoodSleep(){
+        return this.Good_sleep_statement(this.getStart(), this.getFinish());
+}
+    private  Exception Error(){
+        return  new Exception("Error value.");
+    }
+    public void Display(){
+        System.out.println("\n Cat name is " + CatName);
+        if(ResultOfGoodSleep()){
+            System.out.println("\n good slept.");
+        }
+        else{
+            System.out.println("\n bad slept.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args)
+    {
+Cat meow = new Cat("lolo");
+meow.Display();
+    }
+
