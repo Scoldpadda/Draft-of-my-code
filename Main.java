@@ -1,23 +1,34 @@
-import  java.util.Collection;
-import java.util.ArrayList;
+import java.io.FileReader;
 
-public class Main { // mapping over list
+public class Main {
     public static void main(String[] args) {
-        {
-            Cons cons  = new Cons(1,2,3,4);
-            Operations operate = new Operations(); System.out.println("Car: ");
-            System.out.println(operate.Car(cons.getItems()));
-            operate.PrintItems(cons); System.out.println("Cdr: ");
-           operate.PrintItems(operate.Cdr(cons.getItems()));
-           var scale = operate.ScaleList(cons.getItems(),10);
-            System.out.println("Scale: ");
-           operate.PrintItems(scale);System.out.println("Scale222: ");
-          var t= operate.Scale2(cons.getItems(),10);
-            operate.PrintItems(t);
+
+CoffeeTree first =  new CoffeeTree();
+CoffeeObject Chibo = new CoffeeObject("Chibo", "Gold", 359.99f);
+CoffeeObject Lavazza = new CoffeeObject("Lavazza", "Black-red", 405.99f);
+CoffeeObject Jokey = new CoffeeObject("Jokey", "red", 199.99f);
+CoffeeObject Bushido = new CoffeeObject("Bushido0", "white", 599.99f) ;
+first.InsertToTree(Chibo);
+first.InsertToTree(Lavazza);
+first.InsertToTree(Jokey);
+Print("In order traverse: ");
+first.InOrder();
+Print("PreOrder traverse: " );
+first.PreOrder();
+Print("PostOrder traverse: ");
+first.PostOrder();
+first.InsertToTree(Bushido);
+Print("Inserted new Coffee: ");
+first.InOrder();
 
 
-        }
 
 
+
+
+    }
+    public static void Print(String message){
+        System.out.println();
+        System.out.println(message);
     }
 }
