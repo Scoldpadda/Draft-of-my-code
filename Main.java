@@ -1,34 +1,41 @@
-import java.io.FileReader;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
 
-CoffeeTree first =  new CoffeeTree();
-CoffeeObject Chibo = new CoffeeObject("Chibo", "Gold", 359.99f);
-CoffeeObject Lavazza = new CoffeeObject("Lavazza", "Black-red", 405.99f);
-CoffeeObject Jokey = new CoffeeObject("Jokey", "red", 199.99f);
-CoffeeObject Bushido = new CoffeeObject("Bushido0", "white", 599.99f) ;
-first.InsertToTree(Chibo);
-first.InsertToTree(Lavazza);
-first.InsertToTree(Jokey);
-Print("In order traverse: ");
-first.InOrder();
-Print("PreOrder traverse: " );
-first.PreOrder();
-Print("PostOrder traverse: ");
-first.PostOrder();
-first.InsertToTree(Bushido);
-Print("Inserted new Coffee: ");
-first.InOrder();
-
-
-
+        Data data1=  new Data(1,2,3,4,5);
+        Data data2 = new Data(9,10,12);
+        data1.PrintData();
+        data2.PrintData();
+        DataProcedure proc = new DataProcedure();
+        Print("Odd : ");
+        Data dataForTestOdd = new Data(13,3,1,3,9,1); // 30
+        Print(proc.SumOddSqrt(dataForTestOdd));
+        Print("Value for Fibonacci sequence: ");
+        Print(proc.PrintFibSequence(9));
+        Print("His Even numbs accumulation: ");
+       Print(proc.AccumulateEvenFibSequence(9));
 
 
 
     }
-    public static void Print(String message){
+
+
+
+
+
+    static void Print(String message){
         System.out.println();
-        System.out.println(message);
+        System.out.print(message);
+
     }
-}
+    static void Print(int value){
+        System.out.println();
+        System.out.print(value);
+    }
+    static  void Print(ArrayList<Integer> value){
+        System.out.println();
+        for(  int i: value){
+            System.out.print(i + " ");
+        }
+    }}
